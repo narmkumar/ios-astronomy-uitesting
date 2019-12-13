@@ -10,8 +10,33 @@ import XCTest
 
 class AstronomyUITests: XCTestCase {
     
-    private var app: XCUIApplication = XCUIApplication()
+    // MARK: - Properties
 
+    
+    private var app: XCUIApplication = XCUIApplication()
+    
+    private var cell: XCUIElement {
+        return app.cells["ImageCell.identifier"]
+    }
+    
+    private var savebutton: XCUIElement {
+        return app.buttons["PhotoDetailViewController.SaveButton"]
+    }
+
+    
+    // MARK: - Test List
+    
+    /*
+     
+     1. Photo Fetching and Loading
+     2. Test Viewing Another Sol
+     3. Test Tap Image Goes to Detail VC
+     4. Save Image Functions Properly
+     
+     
+     */
+
+    
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
 
@@ -20,17 +45,22 @@ class AstronomyUITests: XCTestCase {
 
         // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
         
+        XCUIApplication().launch()
+
         app.launchArguments = ["UITesting"]
     }
     
-//    func testSavePhoto() {
-//        let fetchPhotoExpectation = expectation(for: NSPredicate(format: "count > 0"), evaluatedWith: app.tables.cells.images, handler: nil)
-//
-//        fetchPhotoExpectation.expectationDescription = "Space Photos have been fetched and are displayed"
-//
-//
-//        waitForExpectations(timeout: 5)
-//    }
+    // MARK: - UI Tests
+    
+    func testPhotoLoading() {
+        let fetchdPhotosExpectation = expectation(for: NSPredicate(format: "count > 0"), evaluatedWith: app.cells.images, handler: nil)
+        
+        fetchdPhotosExpectation.expectationDescription = "Photos have been fetched and displayed."
+        waitForExpectations(timeout: 5)
+    }
+
+    
+    
     
     
 
